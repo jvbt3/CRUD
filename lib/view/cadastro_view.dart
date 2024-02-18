@@ -1,5 +1,6 @@
 import 'package:crud/controller/cadastro_controller.dart';
-import 'package:crud/model/usuario_model.dart';
+import 'package:crud/model/post_usuario_model.dart';
+import 'package:crud/view/home_view.dart';
 import 'package:flutter/material.dart';
 
 class CadastroView extends StatefulWidget {
@@ -30,6 +31,11 @@ class _CadastroViewState extends State<CadastroView> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
+          actions: [
+           IconButton(onPressed: (){
+            Navigator.pop(context);
+           }, icon: const Icon(Icons.arrow_back))
+          ],
           title: const Text('Cadastro'),
         ),
         body: Padding(
@@ -74,6 +80,7 @@ class _CadastroViewState extends State<CadastroView> {
                             phoneController.clear();
                             ativarBotao = false;
                           });
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
                         } : null,
                   child: const Text('Cadastrar'),
                 ),

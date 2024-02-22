@@ -80,6 +80,7 @@ class _CadastroViewState extends State<CadastroView> {
                             phoneController.clear();
                             ativarBotao = false;
                           });
+                          leituraUsuario();
                           Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
                         } : null,
                   child: const Text('Cadastrar'),

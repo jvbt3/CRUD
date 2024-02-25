@@ -1,4 +1,8 @@
+import 'package:crud/view/atualizar_view.dart';
+import 'package:crud/view/home_view.dart';
 import 'package:flutter/material.dart';
+
+import '../controller/usuario.controller.dart';
 
 class CardUsuario extends StatelessWidget {
   final String nome;
@@ -16,41 +20,83 @@ class CardUsuario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Nome: $nome",
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {
+        String idN = id;
+        print('usuário selecionado: $idN');
+      },
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Nome: $nome",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Email: $email",
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "Número: $phone",
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    "id: $id",
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "Email: $email",
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
+              GestureDetector(
+                onTap: () {
+                  String idUser = id;
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AtualizarView(userId: idUser)));
+                },
+                child: const Icon(Icons.edit),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              "Número: $phone",
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-              ),
-            ),
-          ],
+              GestureDetector(
+                onTap: () async {
+                  String idUser = id;
+                  await deleteUsuario(idUser);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeView(),
+                    ),
+                  );
+                },
+                child: const Icon(Icons.delete),
+              )
+            ],
+          ),
         ),
       ),
     );
-  }}
+  }
+}

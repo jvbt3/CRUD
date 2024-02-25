@@ -5,29 +5,23 @@ import 'card_usuario_components.dart';
 
 class ListarUsuarios extends StatelessWidget {
   const ListarUsuarios({
-    super.key,
+    Key? key,
     required this.usuarios,
-  });
+  }) : super(key: key);
 
   final List<GetUsuario> usuarios;
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 1,
-        crossAxisSpacing: 1,
-        mainAxisSpacing: 2,
-        childAspectRatio: 6.5,
-      ),
+    return ListView.builder(
       itemCount: usuarios.length,
       itemBuilder: (context, index) {
         final usuario = usuarios[index];
         return CardUsuario(
-          nome: usuario.nome,
-          email: usuario.email,
-          phone: usuario.phone,
-          id: usuario.id,
+          nome: usuario.nome!,
+          email: usuario.email!,
+          phone: usuario.phone!,
+          id: usuario.id!,
         );
       },
     );

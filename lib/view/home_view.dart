@@ -1,7 +1,6 @@
-import 'package:crud/controller/cadastro_controller.dart';
+import 'package:crud/controller/usuario.controller.dart';
 import 'package:crud/view/cadastro_view.dart';
 import 'package:flutter/material.dart';
-
 import '../components/listar_usuario_components.dart';
 import '../model/get_usuario_model.dart';
 
@@ -13,6 +12,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+
   Future<List<GetUsuario>>? getUsuario;
 
   @override
@@ -24,13 +24,13 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Usuários'),
           actions: [
             IconButton(
               onPressed: () {
-                leituraUsuario();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -50,7 +50,9 @@ class _HomeViewState extends State<HomeView> {
               return ListarUsuarios(usuarios: usuario);
             } else if (snapshot.hasError) {
               return Center(
-                child: Text(snapshot.error.toString()),
+                child: Text(
+                  snapshot.error.toString(),
+                ),
               );
             }
             return const Center(

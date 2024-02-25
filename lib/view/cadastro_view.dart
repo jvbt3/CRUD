@@ -1,7 +1,8 @@
-import 'package:crud/controller/cadastro_controller.dart';
-import 'package:crud/model/post_usuario_model.dart';
+import 'package:crud/controller/usuario.controller.dart';
 import 'package:crud/view/home_view.dart';
 import 'package:flutter/material.dart';
+
+import '../model/get_usuario_model.dart';
 
 class CadastroView extends StatefulWidget {
   const CadastroView({super.key});
@@ -10,31 +11,35 @@ class CadastroView extends StatefulWidget {
   State<CadastroView> createState() => _CadastroViewState();
 }
 
-var nomeController = TextEditingController();
-var emailController = TextEditingController();
-var phoneController = TextEditingController();
-
-bool? ativarBotao;
-
-Future<Usuario>? _futureUsuario;
-
 class _CadastroViewState extends State<CadastroView> {
+  var nomeController = TextEditingController();
+  var emailController = TextEditingController();
+  var phoneController = TextEditingController();
 
-  validarBotao(){
+  bool? ativarBotao;
+
+  List<GetUsuario>? teste;
+
+  validarBotao() {
     setState(() {
-      ativarBotao = nomeController.text.isNotEmpty && emailController.text.isNotEmpty && phoneController.text.isNotEmpty;
+      ativarBotao = nomeController.text.isNotEmpty &&
+          emailController.text.isNotEmpty &&
+          phoneController.text.isNotEmpty;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           actions: [
-           IconButton(onPressed: (){
-            Navigator.pop(context);
-           }, icon: const Icon(Icons.arrow_back))
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back))
           ],
           title: const Text('Cadastro'),
         ),
@@ -69,20 +74,20 @@ class _CadastroViewState extends State<CadastroView> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: ElevatedButton(
-                  onPressed: ativarBotao == true ? () {
-                          setState(() {
-                            _futureUsuario = cadastroUsuario(
-                                nomeController.text,
-                                emailController.text,
-                                phoneController.text);
-                            nomeController.clear();
-                            emailController.clear();
-                            phoneController.clear();
-                            ativarBotao = false;
-                          });
-                          leituraUsuario();
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
-                        } : null,
+                  onPressed: ativarBotao == true
+                      ? () async {
+                          await cadastroUsuario(nomeController.text,
+                              emailController.text, phoneController.text);
+                          nomeController.clear();
+                          emailController.clear();
+                          phoneController.clear();
+                          ativarBotao = false;
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeView()));
+                        }
+                      : null,
                   child: const Text('Cadastrar'),
                 ),
               ),

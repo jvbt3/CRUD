@@ -1,15 +1,14 @@
-import 'package:crud/controller/usuario.controller.dart';
-import 'package:crud/model/post_usuario_model.dart';
 import 'package:crud/view/home_view.dart';
 import 'package:flutter/material.dart';
+import '../controller/usuario.controller.dart';
 
-import '../model/get_usuario_model.dart';
+class AtualizarView extends StatefulWidget {
+  final String userId;
 
-class CadastroView extends StatefulWidget {
-  const CadastroView({super.key});
+  const AtualizarView({super.key, required this.userId});
 
   @override
-  State<CadastroView> createState() => _CadastroViewState();
+  State<AtualizarView> createState() => _AtualizarViewState();
 }
 
 var nomeController = TextEditingController();
@@ -18,15 +17,12 @@ var phoneController = TextEditingController();
 
 bool? ativarBotao;
 
-Future<Usuario>? _futureUsuario;
-
-List<GetUsuario>? teste;
-
-class _CadastroViewState extends State<CadastroView> {
-
-  validarBotao(){
+class _AtualizarViewState extends State<AtualizarView> {
+  validarBotao() {
     setState(() {
-      ativarBotao = nomeController.text.isNotEmpty && emailController.text.isNotEmpty && phoneController.text.isNotEmpty;
+      ativarBotao = nomeController.text.isNotEmpty &&
+          emailController.text.isNotEmpty &&
+          phoneController.text.isNotEmpty;
     });
   }
 
@@ -37,9 +33,11 @@ class _CadastroViewState extends State<CadastroView> {
       home: Scaffold(
         appBar: AppBar(
           actions: [
-           IconButton(onPressed: (){
-            Navigator.pop(context);
-           }, icon: const Icon(Icons.arrow_back))
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.arrow_back))
           ],
           title: const Text('Cadastro'),
         ),
@@ -51,14 +49,18 @@ class _CadastroViewState extends State<CadastroView> {
             children: [
               TextFormField(
                 controller: nomeController,
-                decoration: const InputDecoration(label: Text('Nome completo')),
+                decoration: const InputDecoration(
+                  label: Text('Nome completo'),
+                ),
                 onChanged: (value) {
                   validarBotao();
                 },
               ),
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(label: Text('E-mail')),
+                decoration: const InputDecoration(
+                  label: Text('E-mail'),
+                ),
                 onChanged: (value) {
                   validarBotao();
                 },
@@ -66,7 +68,9 @@ class _CadastroViewState extends State<CadastroView> {
               TextFormField(
                 keyboardType: TextInputType.phone,
                 controller: phoneController,
-                decoration: const InputDecoration(label: Text('Telefone')),
+                decoration: const InputDecoration(
+                  label: Text('Telefone'),
+                ),
                 onChanged: (value) {
                   validarBotao();
                 },
@@ -74,20 +78,25 @@ class _CadastroViewState extends State<CadastroView> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: ElevatedButton(
-                  onPressed: ativarBotao == true ? () async{
+                  onPressed: ativarBotao == true
+                      ? () {
                           setState(() {
-                            _futureUsuario = cadastroUsuario(
-                                nomeController.text,
-                                emailController.text,
-                                phoneController.text);
+                            atualizarUsuario(widget.userId, nomeController.text,
+                                emailController.text, phoneController.text);
                             nomeController.clear();
                             emailController.clear();
                             phoneController.clear();
                             ativarBotao = false;
                           });
-                          await Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
-                        } : null,
-                  child: const Text('Cadastrar'),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomeView(),
+                            ),
+                          );
+                        }
+                      : null,
+                  child: const Text('Atualizar'),
                 ),
               ),
             ],

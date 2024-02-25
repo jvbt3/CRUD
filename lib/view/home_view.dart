@@ -1,7 +1,6 @@
-import 'package:crud/controller/cadastro_controller.dart';
+import 'package:crud/controller/usuario.controller.dart';
 import 'package:crud/view/cadastro_view.dart';
 import 'package:flutter/material.dart';
-
 import '../components/listar_usuario_components.dart';
 import '../model/get_usuario_model.dart';
 
@@ -24,6 +23,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Usuários'),

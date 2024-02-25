@@ -2,6 +2,7 @@ import 'package:crud/controller/cadastro_controller.dart';
 import 'package:crud/view/cadastro_view.dart';
 import 'package:flutter/material.dart';
 
+import '../components/listar_usuario_components.dart';
 import '../model/get_usuario_model.dart';
 
 class HomeView extends StatefulWidget {
@@ -12,11 +13,10 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-
   Future<List<GetUsuario>>? getUsuario;
 
   @override
-  void initState(){
+  void initState() {
     getUsuario = leituraUsuario();
     super.initState();
   }
@@ -28,11 +28,35 @@ class _HomeViewState extends State<HomeView> {
         appBar: AppBar(
           title: const Text('Usuários'),
           actions: [
-            IconButton(onPressed: (){
-              leituraUsuario();
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const CadastroView()));
-            }, icon: const Icon(Icons.add))
+            IconButton(
+              onPressed: () {
+                leituraUsuario();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const CadastroView(),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.add),
+            )
           ],
+        ),
+        body: FutureBuilder(
+          future: getUsuario,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final usuario = snapshot.data as List<GetUsuario>;
+              return ListarUsuarios(usuarios: usuario);
+            } else if (snapshot.hasError) {
+              return Center(
+                child: Text(snapshot.error.toString()),
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         ),
       ),
     );

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
   final response = await http.post(
     Uri.parse(
-        'https://crudcrud.com/api/95ed551fc434475db9b1a13690084aed/usuarios'),
+        'https://crudcrud.com/api/35a3c13449684caca02b2f22a2bacd0f/user'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -26,7 +26,7 @@ Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
 
 Future<List<GetUsuario>> leituraUsuario() async {
   final response = await http.get(Uri.parse(
-      'https://crudcrud.com/api/95ed551fc434475db9b1a13690084aed/usuarios'));
+      'https://crudcrud.com/api/35a3c13449684caca02b2f22a2bacd0f/user'));
   print(response.body);
 
   if (response.statusCode == 200) {

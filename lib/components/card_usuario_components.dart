@@ -1,6 +1,8 @@
 import 'package:crud/view/atualizar_view.dart';
 import 'package:flutter/material.dart';
 
+import '../controller/usuario.controller.dart';
+
 class CardUsuario extends StatelessWidget {
   final String nome;
   final String email;
@@ -71,9 +73,20 @@ class CardUsuario extends StatelessWidget {
                 onTap: () {
                   String idUser = id;
                   print('usuário selecionado: $idUser');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => AtualizarView(userId: idUser)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AtualizarView(userId: idUser)));
                 },
                 child: const Icon(Icons.edit),
+              ),
+              GestureDetector(
+                onTap: () {
+                  String idUser = id;
+                  print('usuário selecionado: $idUser');
+                  deleteUsuario(idUser);
+                },
+                child: const Icon(Icons.delete),
               )
             ],
           ),

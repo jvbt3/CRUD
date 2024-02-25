@@ -44,7 +44,7 @@ Future<List<GetUsuario>> leituraUsuario() async {
 }
 
 void atualizarUsuario(
-    String id, String nome, String email, String phone) async{
+    String id, String nome, String email, String phone) async {
   final response = await http.put(
     Uri.parse(
         'https://crudcrud.com/api/b4774ffdd38a426196ec078cb19d68c5/user/$id'),
@@ -58,9 +58,26 @@ void atualizarUsuario(
     }),
   );
   if (response.statusCode == 200) {
-    print("Usuário atualizado com sucesso!");
+    print("Usuário deletado com sucesso!");
   } else {
-    print("Erro ao atualizar usuário. Código de status: ${response.statusCode}");
+    print(
+        "Erro ao atualizar usuário. Código de status: ${response.statusCode}");
+    print(response.body);
+  }
+}
+
+void deleteUsuario(String id) async {
+  final response = await http.delete(
+    Uri.parse(
+        'https://crudcrud.com/api/b4774ffdd38a426196ec078cb19d68c5/user/$id'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+  );
+  if (response.statusCode == 200) {
+    print("Usuário deletado com sucesso!");
+  } else {
+    print("Erro ao deletar usuário. Código de status: ${response.statusCode}");
     print(response.body);
   }
 }

@@ -43,27 +43,24 @@ Future<List<GetUsuario>> leituraUsuario() async {
   }
 }
 
-Future<GetUsuario> atualizarUsuario(String id, String nome, String email, String phone) async {
+void atualizarUsuario(
+    String id, String nome, String email, String phone) async{
   final response = await http.put(
-    Uri.parse('https://crudcrud.com/api/b4774ffdd38a426196ec078cb19d68c5/user/$id'),
+    Uri.parse(
+        'https://crudcrud.com/api/b4774ffdd38a426196ec078cb19d68c5/user/$id'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-
     body: jsonEncode(<String, String>{
       'nome': nome,
       'email': email,
       'phone': phone,
     }),
   );
-
   if (response.statusCode == 200) {
-    return GetUsuario.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+    print("Usuário atualizado com sucesso!");
   } else {
-    throw Exception('Falha ao atualizar usuário - Código ${response.statusCode}');
+    print("Erro ao atualizar usuário. Código de status: ${response.statusCode}");
+    print(response.body);
   }
 }
-
-
-
-

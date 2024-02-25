@@ -28,9 +28,7 @@ class _AtualizarViewState extends State<AtualizarView> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           actions: [
             IconButton(
@@ -80,14 +78,16 @@ class _AtualizarViewState extends State<AtualizarView> {
                 child: ElevatedButton(
                   onPressed: ativarBotao == true
                       ? () {
-                          setState(() {
-                            atualizarUsuario(widget.userId, nomeController.text,
-                                emailController.text, phoneController.text);
+                           atualizarUsuario(
+                              widget.userId, 
+                              nomeController.text,
+                              emailController.text, 
+                              phoneController.text,
+                              );
                             nomeController.clear();
                             emailController.clear();
                             phoneController.clear();
                             ativarBotao = false;
-                          });
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -102,7 +102,6 @@ class _AtualizarViewState extends State<AtualizarView> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 }

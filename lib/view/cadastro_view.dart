@@ -74,9 +74,8 @@ class _CadastroViewState extends State<CadastroView> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: ElevatedButton(
-                  onPressed: ativarBotao == true ? () async{
-                          setState(() {
-                            _futureUsuario = cadastroUsuario(
+                  onPressed: ativarBotao == true ? () async {
+                            await cadastroUsuario(
                                 nomeController.text,
                                 emailController.text,
                                 phoneController.text);
@@ -84,8 +83,7 @@ class _CadastroViewState extends State<CadastroView> {
                             emailController.clear();
                             phoneController.clear();
                             ativarBotao = false;
-                          });
-                          await Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeView()));
                         } : null,
                   child: const Text('Cadastrar'),
                 ),

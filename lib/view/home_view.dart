@@ -30,7 +30,6 @@ class _HomeViewState extends State<HomeView> {
           actions: [
             IconButton(
               onPressed: () {
-                leituraUsuario();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -50,7 +49,9 @@ class _HomeViewState extends State<HomeView> {
               return ListarUsuarios(usuarios: usuario);
             } else if (snapshot.hasError) {
               return Center(
-                child: Text(snapshot.error.toString()),
+                child: Text(
+                  snapshot.error.toString(),
+                ),
               );
             }
             return const Center(

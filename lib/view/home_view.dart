@@ -12,6 +12,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+
   Future<List<GetUsuario>>? getUsuario;
 
   @override

@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
   final response = await http.post(
-    Uri.parse('https://crudcrud.com/api/b4774ffdd38a426196ec078cb19d68c5/user'),
+    Uri.parse('https://crudcrud.com/api/ab9d95c4863e4b39a317184a59e34351/user'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -25,7 +25,7 @@ Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
 
 Future<List<GetUsuario>> leituraUsuario() async {
   final response = await http.get(
-    Uri.parse('https://crudcrud.com/api/b4774ffdd38a426196ec078cb19d68c5/user'),
+    Uri.parse('https://crudcrud.com/api/ab9d95c4863e4b39a317184a59e34351/user'),
   );
 
   if (response.statusCode == 200) {
@@ -43,11 +43,11 @@ Future<List<GetUsuario>> leituraUsuario() async {
   }
 }
 
-void atualizarUsuario(
+Future<void> atualizarUsuario(
     String id, String nome, String email, String phone) async {
   final response = await http.put(
     Uri.parse(
-        'https://crudcrud.com/api/b4774ffdd38a426196ec078cb19d68c5/user/$id'),
+        'https://crudcrud.com/api/ab9d95c4863e4b39a317184a59e34351/user/$id'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -66,10 +66,10 @@ void atualizarUsuario(
   }
 }
 
-void deleteUsuario(String id) async {
+Future<void> deleteUsuario(String id) async {
   final response = await http.delete(
     Uri.parse(
-        'https://crudcrud.com/api/b4774ffdd38a426196ec078cb19d68c5/user/$id'),
+        'https://crudcrud.com/api/ab9d95c4863e4b39a317184a59e34351/user/$id'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

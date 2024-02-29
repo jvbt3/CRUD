@@ -12,6 +12,7 @@ Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
     },
 
 Após trocar as url's, basta salvar e testar as requisições.
+Cada manipulação poderá ser visualizada acessando o endpoint.
 
 OBS: O CRUD CRUD em sua versão gratuita, possui um tempo limite de validade de 24 horas e 100 requisições. No modo anônimo é possível gerar vários endpoints.
 

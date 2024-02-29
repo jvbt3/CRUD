@@ -6,7 +6,7 @@ Para utilizar as funções GET, POST, DELETE e UPDTAE, é necessário acessar ht
 
 Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
   final response = await http.post(
-    Uri.parse('#https://crudcrud.com/api/ab9d95c4863e4b39a317184a59e34351#/user'), //Lembre-se de deixar "/user" para simular uma rota.
+    Uri.parse('https://crudcrud.com/api/ab9d95c4863e4b39a317184a59e34351/user'), //Lembre-se de deixar "/user" para simular uma rota.
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

@@ -5,14 +5,13 @@ import '../components/listar_usuario_components.dart';
 import '../model/get_usuario_model.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView({Key? key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
 class _HomeViewState extends State<HomeView> {
-
   Future<List<GetUsuario>>? getUsuario;
 
   @override
@@ -28,38 +27,45 @@ class _HomeViewState extends State<HomeView> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Usuários'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CadastroView(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.add),
-            )
-          ],
         ),
         body: FutureBuilder(
           future: getUsuario,
           builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final usuario = snapshot.data as List<GetUsuario>;
-              return ListarUsuarios(usuarios: usuario);
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             } else if (snapshot.hasError) {
               return Center(
                 child: Text(
                   snapshot.error.toString(),
                 ),
               );
+            } else if (!snapshot.hasData || (snapshot.data as List<GetUsuario>).isEmpty) {
+              return const Center(
+                child: Text(
+                  'Nenhum usuário cadastrado.',
+                  style: TextStyle(fontSize: 16),
+                ),
+              );
+            } else {
+              final usuario = snapshot.data as List<GetUsuario>;
+              return ListarUsuarios(usuarios: usuario);
             }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
           },
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CadastroView(),
+              ),
+            );
+          },
+          child: const Icon(Icons.add),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

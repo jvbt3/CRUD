@@ -1,6 +1,6 @@
-# crud
+# Crud
 
-Projeto desenvolvido para fins de estudos sobre requisições.
+Projeto desenvolvido para fins de estudos sobre requisições que ainda vai receber processos de melhorias.
 
 Para utilizar as funções GET, POST, DELETE e UPDTAE, é necessário acessar https://crudcrud.com/, onde será gerado um endpoint para as requisições. Após copiar as requisições é necessário ir na controller do projeto e trocar as url's, EX: 
 

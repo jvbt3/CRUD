@@ -33,6 +33,7 @@ class CardUsuario extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,13 +71,17 @@ class CardUsuario extends StatelessWidget {
                   ),
                 ],
               ),
-              GestureDetector(
+                Row(
+                  children: [
+GestureDetector(
                 onTap: () {
                   String idUser = id;
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AtualizarView(userId: idUser)));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AtualizarView(userId: idUser),
+                    ),
+                  );
                 },
                 child: const Icon(Icons.edit),
               ),
@@ -85,6 +90,7 @@ class CardUsuario extends StatelessWidget {
                   String idUser = id;
                   await deleteUsuario(idUser);
                   Navigator.pushReplacement(
+                    // ignore: use_build_context_synchronously
                     context,
                     MaterialPageRoute(
                       builder: (context) => const HomeView(),
@@ -92,7 +98,9 @@ class CardUsuario extends StatelessWidget {
                   );
                 },
                 child: const Icon(Icons.delete),
-              )
+              ),
+                  ],
+                )
             ],
           ),
         ),

@@ -1,13 +1,12 @@
 import 'package:crud/model/get_usuario_model.dart';
 import 'package:flutter/material.dart';
-
 import 'card_usuario_components.dart';
 
 class ListarUsuarios extends StatelessWidget {
   const ListarUsuarios({
-    Key? key,
+    super.key,
     required this.usuarios,
-  }) : super(key: key);
+  });
 
   final List<GetUsuario> usuarios;
 

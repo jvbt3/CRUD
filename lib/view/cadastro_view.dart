@@ -1,7 +1,7 @@
+import 'package:crud/components/alert_dialog_components.dart';
 import 'package:crud/controller/usuario.controller.dart';
 import 'package:crud/view/home_view.dart';
 import 'package:flutter/material.dart';
-
 import '../model/get_usuario_model.dart';
 
 class CadastroView extends StatefulWidget {
@@ -76,16 +76,38 @@ class _CadastroViewState extends State<CadastroView> {
                 child: ElevatedButton(
                   onPressed: ativarBotao == true
                       ? () async {
-                          await cadastroUsuario(nomeController.text,
-                              emailController.text, phoneController.text);
-                          nomeController.clear();
-                          emailController.clear();
-                          phoneController.clear();
-                          ativarBotao = false;
+                          setState(
+                            () {
+                              ativarBotao = false;
+                            },
+                          );
+                          try {
+                            await cadastroUsuario(nomeController.text,
+                                emailController.text, phoneController.text);
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  AlertDialogUser(message: 'Sucesso ao cadastrar usuário!'),
+                            );
+                          } catch (_) {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  AlertDialogUser(message: 'Erro ao cadastrar usuário!'),
+                            );
+                          }
+                          setState(() {
+                            nomeController.clear();
+                            emailController.clear();
+                            phoneController.clear();
+                            ativarBotao = true;
+                          });
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeView()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomeView(),
+                            ),
+                          );
                         }
                       : null,
                   child: const Text('Cadastrar'),

@@ -1,11 +1,12 @@
 import 'dart:convert';
+import 'package:crud/components/card_usuario_components.dart';
 import 'package:crud/model/get_usuario_model.dart';
 import 'package:crud/model/post_usuario_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
   final response = await http.post(
-    Uri.parse('https://crudcrud.com/api/6305a1f6cc1d4186a89f206ccf90d5c1/user'),
+    Uri.parse('https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -25,7 +26,7 @@ Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
 
 Future<List<GetUsuario>> leituraUsuario() async {
   final response = await http.get(
-    Uri.parse('https://crudcrud.com/api/6305a1f6cc1d4186a89f206ccf90d5c1/user'),
+    Uri.parse('https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user'),
   );
 
   if (response.statusCode == 200) {
@@ -44,21 +45,23 @@ Future<List<GetUsuario>> leituraUsuario() async {
 }
 
 Future<void> atualizarUsuario(
-    String id, String nome, String email, String phone) async {
+    CardUsuario cardUsuario) async {
+      String userId = cardUsuario.id;
+      print(cardUsuario.id);
   final response = await http.put(
     Uri.parse(
-        'https://crudcrud.com/api/6305a1f6cc1d4186a89f206ccf90d5c1/user/$id'),
+        'https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user/$userId'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
-      'nome': nome,
-      'email': email,
-      'phone': phone,
+      'nome': cardUsuario.nome,
+      'email': cardUsuario.email,
+      'phone': cardUsuario.phone,
     }),
   );
   if (response.statusCode == 200) {
-    print("Usuário deletado com sucesso!");
+    print("Usuário atualizado com sucesso!");
   } else {
     print(
         "Erro ao atualizar usuário. Código de status: ${response.statusCode}");
@@ -69,7 +72,7 @@ Future<void> atualizarUsuario(
 Future<void> deleteUsuario(String id) async {
   final response = await http.delete(
     Uri.parse(
-        'https://crudcrud.com/api/6305a1f6cc1d4186a89f206ccf90d5c1/user/$id'),
+        'https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user/$id'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

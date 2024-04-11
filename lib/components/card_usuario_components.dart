@@ -71,36 +71,41 @@ class CardUsuario extends StatelessWidget {
                   ),
                 ],
               ),
-                Row(
-                  children: [
-GestureDetector(
-                onTap: () {
-                  String idUser = id;
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AtualizarView(userId: idUser),
-                    ),
-                  );
-                },
-                child: const Icon(Icons.edit),
-              ),
-              GestureDetector(
-                onTap: () async {
-                  String idUser = id;
-                  await deleteUsuario(idUser);
-                  Navigator.pushReplacement(
-                    // ignore: use_build_context_synchronously
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomeView(),
-                    ),
-                  );
-                },
-                child: const Icon(Icons.delete),
-              ),
-                  ],
-                )
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      CardUsuario card = CardUsuario(
+                        email: email,
+                        id: id,
+                        nome: nome,
+                        phone: phone,
+                      );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AtualizarView(cardUser: card),
+                        ),
+                      );
+                    },
+                    child: const Icon(Icons.edit),
+                  ),
+                  GestureDetector(
+                    onTap: () async {
+                      String idUser = id;
+                      await deleteUsuario(idUser);
+                      Navigator.pushReplacement(
+                        // ignore: use_build_context_synchronously
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HomeView(),
+                        ),
+                      );
+                    },
+                    child: const Icon(Icons.delete),
+                  ),
+                ],
+              )
             ],
           ),
         ),

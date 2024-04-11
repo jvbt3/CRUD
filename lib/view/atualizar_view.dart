@@ -1,11 +1,13 @@
-import 'package:crud/view/home_view.dart';
 import 'package:flutter/material.dart';
+import '../components/alert_dialog_components.dart';
 import '../controller/usuario.controller.dart';
+import '../components/card_usuario_components.dart';
+import 'home_view.dart';
 
 class AtualizarView extends StatefulWidget {
-  final String userId;
+  final CardUsuario cardUser;
 
-  const AtualizarView({super.key, required this.userId});
+  const AtualizarView({Key? key, required this.cardUser}) : super(key: key);
 
   @override
   State<AtualizarView> createState() => _AtualizarViewState();
@@ -18,11 +20,16 @@ class _AtualizarViewState extends State<AtualizarView> {
 
   bool? ativarBotao;
 
-  atualizarUser() {
-    setState(() async {});
+  @override
+  void initState() {
+    super.initState();
+    nomeController = TextEditingController(text: widget.cardUser.nome);
+    emailController = TextEditingController(text: widget.cardUser.email);
+    phoneController = TextEditingController(text: widget.cardUser.phone);
+    validarBotao();
   }
 
-  validarBotao() {
+  void validarBotao() {
     setState(() {
       ativarBotao = nomeController.text.isNotEmpty &&
           emailController.text.isNotEmpty &&
@@ -36,10 +43,11 @@ class _AtualizarViewState extends State<AtualizarView> {
       appBar: AppBar(
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(Icons.arrow_back))
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back),
+          )
         ],
         title: const Text('Atualizar'),
       ),
@@ -52,7 +60,7 @@ class _AtualizarViewState extends State<AtualizarView> {
             TextFormField(
               controller: nomeController,
               decoration: const InputDecoration(
-                label: Text('Nome completo'),
+                labelText: 'Nome completo',
               ),
               onChanged: (value) {
                 validarBotao();
@@ -61,7 +69,7 @@ class _AtualizarViewState extends State<AtualizarView> {
             TextFormField(
               controller: emailController,
               decoration: const InputDecoration(
-                label: Text('E-mail'),
+                labelText: 'E-mail',
               ),
               onChanged: (value) {
                 validarBotao();
@@ -71,7 +79,7 @@ class _AtualizarViewState extends State<AtualizarView> {
               keyboardType: TextInputType.phone,
               controller: phoneController,
               decoration: const InputDecoration(
-                label: Text('Telefone'),
+                labelText: 'Telefone',
               ),
               onChanged: (value) {
                 validarBotao();
@@ -82,13 +90,34 @@ class _AtualizarViewState extends State<AtualizarView> {
               child: ElevatedButton(
                 onPressed: ativarBotao == true
                     ? () async {
-                        await atualizarUsuario(
-                          widget.userId,
-                          nomeController.text,
-                          emailController.text,
-                          phoneController.text,
-                        );
+                        setState(() {
+                          ativarBotao = false;
+                        });
+                        try {
+                          CardUsuario attCard = CardUsuario(nome: nomeController.text, 
+                          email: emailController.text, phone: phoneController.text, id: widget.cardUser.id);
+                                                  
                         ativarBotao = false;
+
+                          await atualizarUsuario(attCard);
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialogUser(message: 'Sucesso ao atualizar usuário!'),
+                          );
+                        } catch (_) {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialogUser(message: 'Erro ao atualizar usuário!'),
+                          );
+                        }
+                        setState(() {
+                          // Limpar os controladores após a atualização
+                          nomeController.clear();
+                          emailController.clear();
+                          phoneController.clear();
+                          // Restaurar a validação do botão
+                          validarBotao();
+                        });
                         Navigator.push(
                           context,
                           MaterialPageRoute(

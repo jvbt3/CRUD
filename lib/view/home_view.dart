@@ -5,7 +5,7 @@ import '../components/listar_usuario_components.dart';
 import '../model/get_usuario_model.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key});
+  const HomeView({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();

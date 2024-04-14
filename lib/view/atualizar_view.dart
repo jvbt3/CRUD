@@ -7,7 +7,7 @@ import 'home_view.dart';
 class AtualizarView extends StatefulWidget {
   final CardUsuario cardUser;
 
-  const AtualizarView({Key? key, required this.cardUser}) : super(key: key);
+  const AtualizarView({super.key, required this.cardUser});
 
   @override
   State<AtualizarView> createState() => _AtualizarViewState();
@@ -111,11 +111,9 @@ class _AtualizarViewState extends State<AtualizarView> {
                           );
                         }
                         setState(() {
-                          // Limpar os controladores após a atualização
                           nomeController.clear();
                           emailController.clear();
                           phoneController.clear();
-                          // Restaurar a validação do botão
                           validarBotao();
                         });
                         Navigator.push(

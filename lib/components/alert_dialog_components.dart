@@ -24,7 +24,6 @@ class _AlertDialogUserState extends State<AlertDialogUser> {
           const SizedBox(height: 15),
           TextButton(
             onPressed: () {
-              print('chamou!');
               Navigator.pop(context);
             },
             child: const Text('Close'),

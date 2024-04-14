@@ -12,9 +12,13 @@ class CadastroView extends StatefulWidget {
 }
 
 class _CadastroViewState extends State<CadastroView> {
+  final _formKey = GlobalKey<FormState>();
+
   var nomeController = TextEditingController();
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
+
+  bool? validado;
 
   bool? ativarBotao;
 
@@ -45,75 +49,105 @@ class _CadastroViewState extends State<CadastroView> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(50.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              TextFormField(
-                controller: nomeController,
-                decoration: const InputDecoration(label: Text('Nome completo')),
-                onChanged: (value) {
-                  validarBotao();
-                },
-              ),
-              TextFormField(
-                controller: emailController,
-                decoration: const InputDecoration(label: Text('E-mail')),
-                onChanged: (value) {
-                  validarBotao();
-                },
-              ),
-              TextFormField(
-                keyboardType: TextInputType.phone,
-                controller: phoneController,
-                decoration: const InputDecoration(label: Text('Telefone')),
-                onChanged: (value) {
-                  validarBotao();
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: ElevatedButton(
-                  onPressed: ativarBotao == true
-                      ? () async {
-                          setState(
-                            () {
-                              ativarBotao = false;
-                            },
-                          );
-                          try {
-                            await cadastroUsuario(nomeController.text,
-                                emailController.text, phoneController.text);
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  AlertDialogUser(message: 'Sucesso ao cadastrar usuário!'),
-                            );
-                          } catch (_) {
-                            showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  AlertDialogUser(message: 'Erro ao cadastrar usuário!'),
-                            );
-                          }
-                          setState(() {
-                            nomeController.clear();
-                            emailController.clear();
-                            phoneController.clear();
-                            ativarBotao = true;
-                          });
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const HomeView(),
-                            ),
-                          );
-                        }
-                      : null,
-                  child: const Text('Cadastrar'),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextFormField(
+                  controller: nomeController,
+                  decoration:
+                      const InputDecoration(label: Text('Nome completo')),
+                  onChanged: (value) {
+                    validarBotao();
+                  },
                 ),
-              ),
-            ],
+                TextFormField(
+                  controller: emailController,
+                  decoration: const InputDecoration(label: Text('E-mail')),
+                  validator: (value) {
+                    final regex = RegExp(
+                        r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
+                    if (!regex.hasMatch(value!)) {
+                      return 'Email inválido!';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    validarBotao();
+                  },
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.phone,
+                  controller: phoneController,
+                  validator: (value) {
+                    final phoneRegex = RegExp(r'^\+\d{2}\d{2}\d{5}\d{4}$');
+                    if (!phoneRegex.hasMatch(value!)) {
+                      return 'Número de telefone inválido. O formato correto é +xxxxxxxxxxxxx';
+                    }
+                    return null;
+                  },
+                  decoration: const InputDecoration(label: Text('Telefone')),
+                  onChanged: (value) {
+                    validarBotao();
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: ElevatedButton(
+                    onPressed: ativarBotao == true
+                        ? () async {
+                            if (_formKey.currentState?.validate() == true) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text('Email válido!')),
+                              );
+                              setState(
+                                () {
+                                  ativarBotao = false;
+                                },
+                              );
+                              try {
+                                await cadastroUsuario(nomeController.text,
+                                    emailController.text, phoneController.text);
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialogUser(
+                                          message:
+                                              'Sucesso ao cadastrar usuário!'),
+                                );
+                              } catch (_) {
+                                showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialogUser(
+                                          message:
+                                              'Erro ao cadastrar usuário!'),
+                                );
+                              }
+                              setState(() {
+                                nomeController.clear();
+                                emailController.clear();
+                                phoneController.clear();
+                                ativarBotao = true;
+                              });
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomeView(),
+                                ),
+                              );
+                            } else {
+                              ativarBotao == false;
+                            }
+                          }
+                        : null,
+                    child: const Text('Cadastrar'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

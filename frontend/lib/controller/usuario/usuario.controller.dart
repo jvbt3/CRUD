@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'package:crud/components/card_usuario_components.dart';
-import 'package:crud/model/get_usuario_model.dart';
-import 'package:crud/model/post_usuario_model.dart';
+import 'package:crud/components/usuario/card_usuario_components.dart';
+import 'package:crud/model/usuario/get_usuario_model.dart';
+import 'package:crud/model/usuario/post_usuario_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
   final response = await http.post(
-    Uri.parse('https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user'),
+    Uri.parse('http://localhost:3000/usuario'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -26,7 +26,7 @@ Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
 
 Future<List<GetUsuario>> leituraUsuario() async {
   final response = await http.get(
-    Uri.parse('https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user'),
+    Uri.parse('http://localhost:3000/usuario'),
   );
 
   if (response.statusCode == 200) {
@@ -50,7 +50,7 @@ Future<void> atualizarUsuario(
       print(cardUsuario.id);
   final response = await http.put(
     Uri.parse(
-        'https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user/$userId'),
+        'https://crudcrud.com/api/90c21339217a4414b89a255d9127c3e4/user/$userId'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -72,7 +72,7 @@ Future<void> atualizarUsuario(
 Future<void> deleteUsuario(String id) async {
   final response = await http.delete(
     Uri.parse(
-        'https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user/$id'),
+        'https://crudcrud.com/api/90c21339217a4414b89a255d9127c3e4/user/$id'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

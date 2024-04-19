@@ -1,11 +1,12 @@
-import 'package:crud/controller/usuario.controller.dart';
-import 'package:crud/view/cadastro_view.dart';
+import 'package:crud/controller/usuario/usuario.controller.dart';
+import 'package:crud/view/produto/produto_home_view.dart';
+import 'package:crud/view/usuario/cadastro_view.dart';
 import 'package:flutter/material.dart';
-import '../components/listar_usuario_components.dart';
-import '../model/get_usuario_model.dart';
+import '../../components/usuario/listar_usuario_components.dart';
+import '../../model/usuario/get_usuario_model.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({Key? key});
+  const HomeView({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -27,6 +28,18 @@ class _HomeViewState extends State<HomeView> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Usuários'),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProdutoHomeView(),
+                    ),
+                  );
+                },
+                child: const Text('Ir para Produtos'))
+          ],
         ),
         body: FutureBuilder(
           future: getUsuario,
@@ -41,7 +54,8 @@ class _HomeViewState extends State<HomeView> {
                   snapshot.error.toString(),
                 ),
               );
-            } else if (!snapshot.hasData || (snapshot.data as List<GetUsuario>).isEmpty) {
+            } else if (!snapshot.hasData ||
+                (snapshot.data as List<GetUsuario>).isEmpty) {
               return const Center(
                 child: Text(
                   'Nenhum usuário cadastrado.',

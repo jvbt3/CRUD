@@ -1,5 +1,6 @@
 import 'package:crud/controller/usuario/usuario.controller.dart';
 import 'package:crud/view/produto/produto_home_view.dart';
+import 'package:crud/view/start_view.dart';
 import 'package:crud/view/usuario/cadastro_view.dart';
 import 'package:flutter/material.dart';
 import '../../components/usuario/listar_usuario_components.dart';
@@ -29,6 +30,16 @@ class _HomeViewState extends State<HomeView> {
         appBar: AppBar(
           title: const Text('Usuários'),
           actions: [
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const StartView(),
+                    ),
+                  );
+                },
+                child: const Text('Ir para Inicio')),
             TextButton(
                 onPressed: () {
                   Navigator.push(

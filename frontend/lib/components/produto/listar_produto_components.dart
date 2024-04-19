@@ -19,7 +19,7 @@ class ListarProdutos extends StatelessWidget {
         return CardProduto(
           nome: produto.nome!,
           peso: produto.peso!,
-          id: produto.id!,
+          barcode: produto.barcode!,
           idSchema: produto.idSchema!,
         );
       },

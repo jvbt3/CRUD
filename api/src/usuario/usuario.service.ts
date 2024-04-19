@@ -21,11 +21,11 @@ export class UsuarioService {
     return `This action returns a #${id} usuario`;
   }
 
-  // update(id: number, updateUsuarioDto: UpdateUsuarioDto) {
-  //   return `This action updates a #${id} usuario`;
-  // }
+  updateOne(id: string, createUsuarioDto: CreateUsuarioDto) {
+    return this.usuarioModel.updateOne({_id: id}, createUsuarioDto);
+  }
 
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
+  remove(id: string) {
+    return this.usuarioModel.deleteOne({_id: id})
   }
 }

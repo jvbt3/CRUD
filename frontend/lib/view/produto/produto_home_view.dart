@@ -2,6 +2,7 @@ import 'package:crud/components/produto/listar_produto_components.dart';
 import 'package:crud/controller/produto/produto.controller.dart';
 import 'package:crud/model/produto/get_produto_model.dart';
 import 'package:crud/view/produto/produto_cadastro_view.dart';
+import 'package:crud/view/start_view.dart';
 import 'package:crud/view/usuario/home_view.dart';
 import 'package:flutter/material.dart';
 
@@ -34,11 +35,21 @@ class _HomeViewState extends State<ProdutoHomeView> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
+                      builder: (context) => const StartView(),
+                    ),
+                  );
+                },
+                child: const Text('Ir para Inicio')),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
                       builder: (context) => const HomeView(),
                     ),
                   );
                 },
-                child: const Text('Ir para Usuários'))
+                child: const Text('Ir para Usuários')),
           ],
         ),
         body: FutureBuilder(

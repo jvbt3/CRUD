@@ -4,16 +4,16 @@ import 'package:crud/model/produto/get_produto_model.dart';
 import 'package:crud/model/produto/post_produto_model.dart';
 import 'package:http/http.dart' as http;
 
-Future<Produto> cadastroProduto(String nome, String peso, String id) async {
+Future<Produto> cadastroProduto(String nome, String peso, String barcode) async {
   final response = await http.post(
-    Uri.parse('https://crudcrud.com/api/90c21339217a4414b89a255d9127c3e4/produto'),
+    Uri.parse('http://localhost:3000/produto'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
       'nome': nome,
       'peso': peso,
-      'id': id,
+      'barcode': barcode,
     }),
   );
 
@@ -26,7 +26,7 @@ Future<Produto> cadastroProduto(String nome, String peso, String id) async {
 
 Future<List<GetProduto>> leituraProduto() async {
   final response = await http.get(
-    Uri.parse('https://crudcrud.com/api/90c21339217a4414b89a255d9127c3e4/produto'),
+    Uri.parse('http://localhost:3000/produto'),
   );
 
   if (response.statusCode == 200) {
@@ -40,24 +40,24 @@ Future<List<GetProduto>> leituraProduto() async {
       ),
     );
   } else {
-    throw Exception('Erro na leitura dos usuários');
+    throw Exception('Erro na leitura dos produtos');
   }
 }
 
 Future<void> atualizarProduto(
     CardProduto cardProduto) async {
       String productoId = cardProduto.idSchema;
-      print(cardProduto.id);
-  final response = await http.put(
+      print(cardProduto.barcode);
+  final response = await http.patch(
     Uri.parse(
-        'https://crudcrud.com/api/90c21339217a4414b89a255d9127c3e4/produto/$productoId'),
+        'http://localhost:3000/produto/$productoId'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
     body: jsonEncode(<String, String>{
       'nome': cardProduto.nome,
       'peso': cardProduto.peso,
-      'id': cardProduto.id,
+      'barcode': cardProduto.barcode,
     }),
   );
   if (response.statusCode == 200) {
@@ -72,7 +72,7 @@ Future<void> atualizarProduto(
 Future<void> deleteProduto(String id) async {
   final response = await http.delete(
     Uri.parse(
-        'https://crudcrud.com/api/90c21339217a4414b89a255d9127c3e4/produto/$id'),
+        'http://localhost:3000/produto/$id'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

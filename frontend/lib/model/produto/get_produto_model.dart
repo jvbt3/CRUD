@@ -1,18 +1,18 @@
 class GetProduto {
   String? nome;
   String? peso;
-  String? id;
+  String? barcode;
   String? idSchema;
   GetProduto({
     this.nome,
     this.peso,
-    this.id,
+    this.barcode,
     this.idSchema
   });
   GetProduto.fromJson(Map<String, dynamic> json) {
   nome = json['nome'].toString();
   peso = json['peso'].toString();
-  id = json['id'].toString();
+  barcode = json['barcode'].toString();
   idSchema = json['_id'].toString();
   }
 }

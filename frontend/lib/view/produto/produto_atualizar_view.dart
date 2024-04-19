@@ -25,7 +25,7 @@ class _AtualizarProdutoState extends State<AtualizarProduto> {
     super.initState();
     nomeController = TextEditingController(text: widget.cardProduto.nome);
     pesoController = TextEditingController(text: widget.cardProduto.peso);
-    idController = TextEditingController(text: widget.cardProduto.id);
+    idController = TextEditingController(text: widget.cardProduto.barcode);
     validarBotao();
   }
 
@@ -95,7 +95,7 @@ class _AtualizarProdutoState extends State<AtualizarProduto> {
                         });
                         try {
                           CardProduto attCard = CardProduto(nome: nomeController.text, 
-                          peso: pesoController.text, id: idController.text, idSchema: widget.cardProduto.idSchema);
+                          peso: pesoController.text, barcode: idController.text, idSchema: widget.cardProduto.idSchema);
                                                   
                         ativarBotao = false;
 

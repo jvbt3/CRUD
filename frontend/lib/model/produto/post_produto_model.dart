@@ -3,18 +3,18 @@ import 'dart:convert';
 class Produto {
   String? nome;
   String? peso;
-  String? id;
+  String? barcode;
   Produto({
     this.nome,
     this.peso,
-    this.id,
+    this.barcode,
   });
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'nome': nome,
       'peso': peso,
-      'id': id,
+      'barcode': barcode,
     };
   }
 
@@ -22,7 +22,7 @@ class Produto {
     return Produto(
       nome: map['nome'] != null ? map['nome'] as String : null,
       peso: map['peso'] != null ? map['peso'] as String : null,
-      id: map['id'] != null ? map['id'] as String : null,
+      barcode: map['barcode'] != null ? map['barcode'] as String : null,
     );
   }
 

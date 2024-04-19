@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 class CardProduto extends StatelessWidget {
   final String nome;
   final String peso;
-  final String id;
+  final String barcode;
   final String idSchema;
 
   const CardProduto({
     super.key,
     required this.nome,
     required this.peso,
-    required this.id,
+    required this.barcode,
     required this.idSchema
   });
 
@@ -21,8 +21,8 @@ class CardProduto extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        String idN = id;
-        print('usuário selecionado: $idN');
+        String idN = idSchema;
+        print('produto selecionado: $idN');
       },
       child: Card(
         elevation: 4,
@@ -54,7 +54,7 @@ class CardProduto extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Código de barras: $id",
+                    "Código de barras: $barcode",
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
@@ -69,7 +69,7 @@ class CardProduto extends StatelessWidget {
                     onTap: () {
                       CardProduto card = CardProduto(
                         peso: peso,
-                        id: id,
+                        barcode: barcode,
                         nome: nome, 
                         idSchema: idSchema,
                       );
@@ -86,7 +86,7 @@ class CardProduto extends StatelessWidget {
                     onTap: () async {
                       String idProduto = idSchema;
                       await deleteProduto(idProduto);
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const ProdutoHomeView(),

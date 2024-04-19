@@ -94,8 +94,7 @@ class CardUsuario extends StatelessWidget {
                     onTap: () async {
                       String idUser = id;
                       await deleteUsuario(idUser);
-                      Navigator.pushReplacement(
-                        // ignore: use_build_context_synchronously
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const HomeView(),

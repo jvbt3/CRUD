@@ -48,9 +48,9 @@ Future<void> atualizarUsuario(
     CardUsuario cardUsuario) async {
       String userId = cardUsuario.id;
       print(cardUsuario.id);
-  final response = await http.put(
+  final response = await http.patch(
     Uri.parse(
-        'https://crudcrud.com/api/90c21339217a4414b89a255d9127c3e4/user/$userId'),
+        'http://localhost:3000/usuario/$userId'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -72,7 +72,7 @@ Future<void> atualizarUsuario(
 Future<void> deleteUsuario(String id) async {
   final response = await http.delete(
     Uri.parse(
-        'https://crudcrud.com/api/90c21339217a4414b89a255d9127c3e4/user/$id'),
+        'http://localhost:3000/usuario/$id'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },

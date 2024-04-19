@@ -64,7 +64,7 @@ class _ProdutoCadastroViewState extends State<ProdutoCadastroView> {
                   validator: (value) {
                     final phoneRegex = RegExp(r'^\d+(\.\d+)?$');
                     if (!phoneRegex.hasMatch(value!)) {
-                      return 'Peso inválido. O formato correto é xxxx';
+                      return 'Peso inválido. deve ser número.';
                     }
                     return null;
                   },
@@ -75,7 +75,7 @@ class _ProdutoCadastroViewState extends State<ProdutoCadastroView> {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   controller: idController,
-                  decoration: const InputDecoration(label: Text('Id')),
+                  decoration: const InputDecoration(label: Text('Código de barras')),
                   validator: (value) {
                     final phoneRegex = RegExp(r'^\d{6}$');
                     if (!phoneRegex.hasMatch(value!)) {

@@ -5,13 +5,8 @@ import 'package:crud/model/usuario/post_usuario_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
-  // final response1 = await http.get(
-  //   Uri.parse('https://localhost:3000/dto'),
-  // );
-  // print(response1);
-
   final response = await http.post(
-    Uri.parse('https://crudcrud.com/api/90c21339217a4414b89a255d9127c3e4/user'),
+    Uri.parse('http://localhost:3000/usuario'),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
@@ -30,13 +25,8 @@ Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
 }
 
 Future<List<GetUsuario>> leituraUsuario() async {
-  // final response1 = await http.get(
-  //   Uri.parse('http://localhost:3000/dto'),
-  // );
-  // print(response1);
-
   final response = await http.get(
-    Uri.parse('https://crudcrud.com/api/90c21339217a4414b89a255d9127c3e4/user'),
+    Uri.parse('http://localhost:3000/usuario'),
   );
 
   if (response.statusCode == 200) {

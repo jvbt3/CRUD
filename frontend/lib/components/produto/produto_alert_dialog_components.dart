@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-
 // ignore: must_be_immutable
-class AlertDialogUser extends StatefulWidget {
+class AlertDialogProduto extends StatefulWidget {
    String message;
-  AlertDialogUser({
+  AlertDialogProduto({
     super.key,
     required this.message,
   });
   @override
-  State<AlertDialogUser> createState() => _AlertDialogUserState();
+  State<AlertDialogProduto> createState() => _AlertDialogProdutoState();
 }
 
-class _AlertDialogUserState extends State<AlertDialogUser> {
+class _AlertDialogProdutoState extends State<AlertDialogProduto> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -24,7 +23,6 @@ class _AlertDialogUserState extends State<AlertDialogUser> {
           const SizedBox(height: 15),
           TextButton(
             onPressed: () {
-              print('chamou!');
               Navigator.pop(context);
             },
             child: const Text('Close'),

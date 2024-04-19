@@ -1,39 +1,39 @@
+import 'package:crud/components/produto/card_produto_components.dart';
+import 'package:crud/components/produto/produto_alert_dialog_components.dart';
+import 'package:crud/controller/produto/produto.controller.dart';
+import 'package:crud/view/produto/produto_home_view.dart';
 import 'package:flutter/material.dart';
-import '../components/alert_dialog_components.dart';
-import '../controller/usuario.controller.dart';
-import '../components/card_usuario_components.dart';
-import 'home_view.dart';
 
-class AtualizarView extends StatefulWidget {
-  final CardUsuario cardUser;
+class AtualizarProduto extends StatefulWidget {
+  final CardProduto cardProduto;
 
-  const AtualizarView({Key? key, required this.cardUser}) : super(key: key);
+  const AtualizarProduto({Key? key, required this.cardProduto}) : super(key: key);
 
   @override
-  State<AtualizarView> createState() => _AtualizarViewState();
+  State<AtualizarProduto> createState() => _AtualizarProdutoState();
 }
 
-class _AtualizarViewState extends State<AtualizarView> {
+class _AtualizarProdutoState extends State<AtualizarProduto> {
   var nomeController = TextEditingController();
-  var emailController = TextEditingController();
-  var phoneController = TextEditingController();
+  var pesoController = TextEditingController();
+  var idController = TextEditingController();
 
   bool? ativarBotao;
 
   @override
   void initState() {
     super.initState();
-    nomeController = TextEditingController(text: widget.cardUser.nome);
-    emailController = TextEditingController(text: widget.cardUser.email);
-    phoneController = TextEditingController(text: widget.cardUser.phone);
+    nomeController = TextEditingController(text: widget.cardProduto.nome);
+    pesoController = TextEditingController(text: widget.cardProduto.peso);
+    idController = TextEditingController(text: widget.cardProduto.id);
     validarBotao();
   }
 
   void validarBotao() {
     setState(() {
       ativarBotao = nomeController.text.isNotEmpty &&
-          emailController.text.isNotEmpty &&
-          phoneController.text.isNotEmpty;
+          pesoController.text.isNotEmpty &&
+          idController.text.isNotEmpty;
     });
   }
 
@@ -60,26 +60,26 @@ class _AtualizarViewState extends State<AtualizarView> {
             TextFormField(
               controller: nomeController,
               decoration: const InputDecoration(
-                labelText: 'Nome completo',
+                labelText: 'Nome do Produto',
               ),
               onChanged: (value) {
                 validarBotao();
               },
             ),
             TextFormField(
-              controller: emailController,
+              controller: pesoController,
               decoration: const InputDecoration(
-                labelText: 'E-mail',
+                labelText: 'Peso',
               ),
               onChanged: (value) {
                 validarBotao();
               },
             ),
             TextFormField(
-              keyboardType: TextInputType.phone,
-              controller: phoneController,
+              keyboardType: TextInputType.text,
+              controller: idController,
               decoration: const InputDecoration(
-                labelText: 'Telefone',
+                labelText: 'Código de barras',
               ),
               onChanged: (value) {
                 validarBotao();
@@ -94,34 +94,32 @@ class _AtualizarViewState extends State<AtualizarView> {
                           ativarBotao = false;
                         });
                         try {
-                          CardUsuario attCard = CardUsuario(nome: nomeController.text, 
-                          email: emailController.text, phone: phoneController.text, id: widget.cardUser.id);
+                          CardProduto attCard = CardProduto(nome: nomeController.text, 
+                          peso: pesoController.text, id: idController.text, idSchema: widget.cardProduto.idSchema);
                                                   
                         ativarBotao = false;
 
-                          await atualizarUsuario(attCard);
+                          await atualizarProduto(attCard);
                           showDialog<String>(
                             context: context,
-                            builder: (BuildContext context) => AlertDialogUser(message: 'Sucesso ao atualizar usuário!'),
+                            builder: (BuildContext context) => AlertDialogProduto(message: 'Sucesso ao atualizar Produto!'),
                           );
                         } catch (_) {
                           showDialog<String>(
                             context: context,
-                            builder: (BuildContext context) => AlertDialogUser(message: 'Erro ao atualizar usuário!'),
+                            builder: (BuildContext context) => AlertDialogProduto(message: 'Erro ao atualizar Produto!'),
                           );
                         }
                         setState(() {
-                          // Limpar os controladores após a atualização
                           nomeController.clear();
-                          emailController.clear();
-                          phoneController.clear();
-                          // Restaurar a validação do botão
+                          pesoController.clear();
+                          idController.clear();
                           validarBotao();
                         });
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const HomeView(),
+                            builder: (context) => const ProdutoHomeView(),
                           ),
                         );
                       }

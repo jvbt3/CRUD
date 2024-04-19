@@ -1,4 +1,5 @@
-import 'package:crud/view/home_view.dart';
+import 'package:crud/view/produto/produto_home_view.dart';
+import 'package:crud/view/usuario/home_view.dart';
 import 'package:flutter/material.dart';
 
 class StartView extends StatefulWidget {
@@ -18,7 +19,7 @@ class _StartViewState extends State<StartView> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
-              child: const Text('Toque em selecionar para iniciar!'),
+              child: const Text('Selecione entre "Usuário" ou "Produto" para começar'),
             ),
           ),
           Row(
@@ -27,13 +28,24 @@ class _StartViewState extends State<StartView> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomeView(),
-                  ),
-                );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeView(),
+                    ),
+                  );
                 },
-                child: const Text('Iniciar'),
+                child: const Text('Usuário'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ProdutoHomeView(),
+                    ),
+                  );
+                },
+                child: const Text('Produto'),
               ),
             ],
           ),

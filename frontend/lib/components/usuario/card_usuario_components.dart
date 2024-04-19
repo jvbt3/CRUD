@@ -1,8 +1,8 @@
-import 'package:crud/view/atualizar_view.dart';
-import 'package:crud/view/home_view.dart';
+import 'package:crud/view/usuario/atualizar_view.dart';
+import 'package:crud/view/usuario/home_view.dart';
 import 'package:flutter/material.dart';
 
-import '../controller/usuario.controller.dart';
+import '../../controller/usuario/usuario.controller.dart';
 
 class CardUsuario extends StatelessWidget {
   final String nome;

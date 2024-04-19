@@ -5,32 +5,41 @@ import 'package:crud/model/post_usuario_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<Usuario> cadastroUsuario(String nome, String email, String phone) async {
-  final response = await http.post(
-    Uri.parse('https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user'),
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'nome': nome,
-      'email': email,
-      'phone': phone,
-    }),
+  final response1 = await http.get(
+    Uri.parse('https://localhost:3000/dto'),
   );
+  print(response1);
 
-  if (response.statusCode == 201) {
-    return Usuario.fromMap(jsonDecode(response.body) as Map<String, dynamic>);
+  // final response = await http.post(
+  //   Uri.parse('https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user'),
+  //   headers: <String, String>{
+  //     'Content-Type': 'application/json; charset=UTF-8',
+  //   },
+  //   body: jsonEncode(<String, String>{
+  //     'nome': nome,
+  //     'email': email,
+  //     'phone': phone,
+  //   }),
+  // );
+
+  if (response1.statusCode == 201) {
+    return Usuario.fromMap(jsonDecode(response1.body) as Map<String, dynamic>);
   } else {
     throw Exception('Falha ao criar usuário');
   }
 }
 
 Future<List<GetUsuario>> leituraUsuario() async {
-  final response = await http.get(
-    Uri.parse('https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user'),
+  final response1 = await http.get(
+    Uri.parse('http://localhost:3000/dto'),
   );
+  print(response1);
+  // final response = await http.get(
+  //   Uri.parse('https://crudcrud.com/api/237e1ee15c264182a684f5f8ba498629/user'),
+  // );
 
-  if (response.statusCode == 200) {
-    final json = jsonDecode(response.body);
+  if (response1.statusCode == 200) {
+    final json = jsonDecode(response1.body);
 
     return List<GetUsuario>.from(
       json.map(
